@@ -2,9 +2,11 @@
 #ifndef USERSPACE
 #define USERSPACE
 
+#define TAPPING_TERM 200
+
+#include QMK_KEYBOARD_H
 #include "quantum.h"
 #include "wrappers.h"
-#include QMK_KEYBOARD_H
 
 /* Define layer names */
 enum userspace_layers {
