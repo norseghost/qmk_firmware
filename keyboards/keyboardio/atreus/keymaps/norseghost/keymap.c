@@ -17,10 +17,10 @@
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_wrapper( \
-     K01,         K02,         K03,         K04,           K05,                             K06,     K07,         K08,         K09,         K0A,         \
-     LCTL_T(K11), LALT_T(K12), LGUI_T(K13), LSFT_T(K14),   LT(_NAV,K15),                    K16,     RSFT_T(K17), RGUI_T(K18), LALT_T(K19), RCTL_T(K1A), \
-     K21,         K22,         K23,         K24,           K25,          LOWER,    RAISE,   K26,     K27,         K28,         K29,         K2A,         \
-     KC_ESC,      KC_TAB,      KC_LALT,     KC_LGUI,       KC_SPC,       SYM_BKSP, SYM_ENT, KC_SPC,  KC_RGUI,     KC_RALT,     KC_RCTL,     KC_TAB       \
+     K01,    K02,     K03,     K04,      K05,                         K06,      K07,     K08,     K09,      K0A,    \
+     K11,    K12,     K13,     K14,      K15,                         K16,      K17,     K18,     K19,      K1A,    \
+     K21,    K22,     K23,     K24,      K25,      LOWER,    RAISE,   K26,      K27,     K28,     K29,      K2A,    \
+     KC_ESC, KC_TAB,  KC_LALT, KC_DEL,   SYM_BKSP, KC_SPC,   KC_SPC,  SYM_ENT,  KC_RALT, KC_LEFT, KC_RIGHT, KC_DOWN \
      )
 #define LAYOUT_atreus_base_wrapper(...)       LAYOUT_atreus_base(__VA_ARGS__)
 
@@ -30,6 +30,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
     _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
     _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
+  ),
+
+  [_GAME]  = LAYOUT_atreus_base_wrapper(
+    _________________GAME_L1___________________, _________________GAME_R1___________________,
+    _________________GAME_L2___________________, _________________GAME_R2___________________,
+    _________________GAME_L3___________________, _________________GAME_R3___________________
   ),
 
   [_COLEMAK] = LAYOUT_atreus_base_wrapper(
@@ -93,8 +99,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NAV] = LAYOUT_atreus_base_wrapper(
+    ___________________BLANK___________________, ___________________BLANK___________________,
     ___________________BLANK___________________, ___________________NAV_1___________________,
-    ___________________BLANK___________________, ___________________NAV_2___________________,
-    ___________________BLANK___________________, ___________________BLANK___________________
+    ___________________BLANK___________________, ___________________NAV_2___________________
   )
 };

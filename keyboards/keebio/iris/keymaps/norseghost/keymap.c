@@ -16,11 +16,11 @@
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_wrapper( \
-     KC_TAB,  K01,     K02,     K03,     K04,     K05,                    K06,     K07,     K08,     K09,     K0A,     KC_SLSH, \
-     KC_ESC,  K11,     K12,     K13,     K14,     K15,                    K16,     K17,     K18,     K19,     K1A,     KC_QUOT, \
-     KC_LSFT, K21,     K22,     K23,     K24,     K25,                    K26,     K27,     K28,     K29,     K2A,     KC_RSFT, \
-     KC_MUTE, KC_LCTL, KC_LALT, KC_LGUI, KC_RALT, KC_SPC, LOWER,   RAISE, KC_SPC,  KC_RALT, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, \
-                             KC_LGUI, KC_DEL, LT(_SYMBOLS,KC_BSPC), LT(_SYMBOLS, KC_ENTER), KC_RCTL, KC_RALT                           \
+     KC_MPRV, K01,    K02,      K03,        K04,         K05,                             K06,     K07,         K08,         K09,         K0A,         RGB_TOG, \
+     KC_MNXT, K11,    K12,      K13,        K14, LT(_NAV,K15),                            K16,     K17,         K18,         K19,         K1A,         RGB_MOD, \
+     KC_MPLY, K21,    K22,      K23,        K24,         K25,                             K26,     K27,         K28,         K29,         K2A,         KC_BRIU, \
+     KC_MUTE, KC_ESC, KC_TAB,   KC_LGUI,    KC_RALT,     LOWER,          KC_SPC, KC_SPC,  RAISE,   KC_RALT,     KC_LEFT,     KC_RIGHT,    KC_DOWN,     KC_BRID, \
+                                                     KC_DEL,      SYM_BKSP,       KC_SPC, KC_SPC,  SYM_ENT, KC_RALT                           \
   )
 #define LAYOUT_iris_base_wrapper(...)       LAYOUT_iris_base(__VA_ARGS__)
 
@@ -30,6 +30,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
     _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
     _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
+  ),
+
+  [_GAME]  = LAYOUT_iris_base_wrapper(
+    _________________GAME_L1___________________, _________________GAME_R1___________________,
+    _________________GAME_L2___________________, _________________GAME_R2___________________,
+    _________________GAME_L3___________________, _________________GAME_R3___________________
   ),
 
   [_COLEMAK] = LAYOUT_iris_base_wrapper(

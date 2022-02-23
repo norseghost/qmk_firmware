@@ -48,12 +48,12 @@ NOTE: These are all the same length.  If you do a search/replace
 */
 
 #define _________________QWERTY_L1_________________        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
-#define _________________QWERTY_L2_________________        KC_A,    KC_S,    KC_D,    KC_F,    KC_G
+#define _________________QWERTY_L2_________________        LGUI_T(KC_A),    LALT_T(KC_S),    LCTL_T(KC_D),    LSFT_T(KC_F),    KC_G
 #define _________________QWERTY_L3_________________        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
 
 #define _________________QWERTY_R1_________________        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
-#define _________________QWERTY_R2_________________        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN
-#define _________________QWERTY_R3_________________        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
+#define _________________QWERTY_R2_________________        KC_H,    RSFT_T(KC_J),    RCTL_T(KC_K),    LALT_T(KC_L),    RGUI_T(KC_SCLN)
+#define _________________QWERTY_R3_________________        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP
 
 
 #define _________________COLEMAK_L1________________       KC_Q,    KC_W,    KC_F,    KC_P,    KC_G
@@ -165,9 +165,9 @@ NOTE: These are all the same length.  If you do a search/replace
 #define ________________NUMBER_LEFT________________       KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define ________________NUMBER_RIGHT_______________       KC_6,    KC_7,    KC_8,    KC_9,    KC_0
 
-#define __________________NUMPAD_1_________________       _______, KC_7,    KC_8,    KC_9,    _______
-#define __________________NUMPAD_2_________________       _______, KC_4,    KC_5,    KC_6,    _______
-#define __________________NUMPAD_3_________________       KC_0,    KC_1,    KC_2,    KC_3,    _______
+#define __________________NUMPAD_1_________________       _______, KC_7,    KC_8,    KC_9, _______
+#define __________________NUMPAD_2_________________       _______, KC_4,    KC_5,    KC_6, _______
+#define __________________NUMPAD_3_________________       KC_0,    KC_1,    KC_2,    KC_3, _______
 
 #define _________________FUNC_LEFT_________________       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
 #define _________________FUNC_RIGHT________________       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
@@ -175,27 +175,33 @@ NOTE: These are all the same length.  If you do a search/replace
 
 #define __________________FUNC_R1__________________       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
 #define __________________FUNC_R2__________________       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
-#define __________________FUNC_R3__________________       KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15
+#define __________________FUNC_R3__________________       KC_F11,  KC_F12,  _______, _______, _______
 
 
 #define ___________________BLANK___________________        _______, _______, _______, _______, _______
 
-#define ___________________NAV_1___________________        KC_HOME, KC_PGUP, KC_PGDN, KC_END,  _______
-#define ___________________NAV_2___________________        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______
+#define ___________________NAV_2___________________        KC_HOME, KC_PGUP, KC_PGDN, KC_END,  _______
+#define ___________________NAV_1___________________        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______
 
-#define _________________SYMBOLS_L1________________        KC_EXLM, KC_AT,   KC_LPRN, KC_RPRN, KC_DQUO
-#define _________________SYMBOLS_L2________________        KC_HASH, KC_DLR,  KC_LBRC, KC_RBRC, KC_QUOT
-#define _________________SYMBOLS_L3________________        KC_DQUO, KC_CIRC, KC_LCBR, KC_RCBR, KC_SLSH
+#define _________________SYMBOLS_L1________________        KC_EXLM, KC_AT,   KC_LPRN, KC_RPRN, KC_DLR
+#define _________________SYMBOLS_L2________________        KC_SCLN, KC_SLSH, KC_LBRC, KC_RBRC, KC_QUOT
+#define _________________SYMBOLS_L3________________        KC_HASH, KC_QUES, KC_LCBR, KC_RCBR, KC_CIRC
 
-#define _________________SYMBOLS_R1________________        KC_AMPR, KC_UNDS, KC_EQL,  KC_PIPE, KC_TILD
-#define _________________SYMBOLS_R2________________        KC_ASTR, KC_MINUS,KC_PLUS, KC_BSLS,  KC_GRV
-#define _________________SYMBOLS_R3________________        KC_QUES, KC_LT,   KC_GT,   KC_PERC, _______
+#define _________________SYMBOLS_R1________________        KC_AMPR, KC_UNDS, KC_PLUS, KC_PIPE, KC_TILD
+#define _________________SYMBOLS_R2________________        KC_DQUO, KC_MINUS,KC_EQL,  KC_BSLS, KC_GRV
+#define _________________SYMBOLS_R3________________        KC_ASTR, KC_LT,   KC_GT,   KC_PERC, KC_COLN
 
+#define _________________GAME_L1___________________        KC_TILD, KC_Q,    KC_W,    KC_E,    KC_R
+#define _________________GAME_L2___________________        KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F
+#define _________________GAME_L3___________________        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V
 
+#define _________________GAME_R1___________________        KC_T,    KC_Y,    KC_U,    KC_I,    KC_O    
+#define _________________GAME_R2___________________        KC_G,    KC_H,    KC_J,    KC_K,    KC_L    
+#define _________________GAME_R3___________________        KC_B,    KC_N,    KC_M,    KC_P,    TG(_GAME)
 
-#define _________________LOWER_L1__________________        ___________________FUNC_R1_________________
-#define _________________LOWER_L2__________________        ___________________FUNC_R2_________________
-#define _________________LOWER_L3__________________        ___________________FUNC_R3_________________
+#define _________________LOWER_L1__________________        __________________FUNC_R1__________________
+#define _________________LOWER_L2__________________        __________________FUNC_R2__________________
+#define _________________LOWER_L3__________________        __________________FUNC_R3__________________
 
 #define _________________LOWER_R1__________________        __________________NUMPAD_1_________________
 #define _________________LOWER_R2__________________        __________________NUMPAD_2_________________
@@ -209,7 +215,7 @@ NOTE: These are all the same length.  If you do a search/replace
 
 #define _________________RAISE_R1__________________        KC_MPRV, KC_VOLU, _______, _______, _______
 #define _________________RAISE_R2__________________        KC_MNXT, KC_VOLD, _______, _______, _______
-#define _________________RAISE_R3__________________        KC_MPLY, KC_MUTE, _______, _______, _______
+#define _________________RAISE_R3__________________        KC_MPLY, KC_MUTE, _______, _______, TG(_GAME)
 
 
 
