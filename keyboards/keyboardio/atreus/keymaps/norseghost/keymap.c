@@ -20,7 +20,7 @@
      K01,    K02,     K03,     K04,      K05,                         K06,      K07,     K08,     K09,      K0A,    \
      K11,    K12,     K13,     K14,      K15,                         K16,      K17,     K18,     K19,      K1A,    \
      K21,    K22,     K23,     K24,      K25,      LOWER,    RAISE,   K26,      K27,     K28,     K29,      K2A,    \
-     KC_ESC, KC_TAB,  KC_LALT, KC_DEL,   SYM_BKSP, KC_SPC,   KC_SPC,  SYM_ENT,  KC_RALT, KC_LEFT, KC_RIGHT, KC_DOWN \
+     KC_ESC, KC_TAB,  KC_LALT, KC_DEL,   SYM_BKSP, KC_SPC,   KC_SPC,  SYM_ENT,  KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT \
      )
 #define LAYOUT_atreus_base_wrapper(...)       LAYOUT_atreus_base(__VA_ARGS__)
 

@@ -19,8 +19,8 @@
      KC_MPRV, K01,    K02,      K03,        K04,         K05,                             K06,     K07,         K08,         K09,         K0A,         RGB_TOG, \
      KC_MNXT, K11,    K12,      K13,        K14, LT(_NAV,K15),                            K16,     K17,         K18,         K19,         K1A,         RGB_MOD, \
      KC_MPLY, K21,    K22,      K23,        K24,         K25,                             K26,     K27,         K28,         K29,         K2A,         KC_BRIU, \
-     KC_MUTE, KC_ESC, KC_TAB,   KC_LGUI,    KC_RALT,     LOWER,          KC_SPC, KC_SPC,  RAISE,   KC_RALT,     KC_LEFT,     KC_RIGHT,    KC_DOWN,     KC_BRID, \
-                                                     KC_DEL,      SYM_BKSP,       KC_SPC, KC_SPC,  SYM_ENT, KC_RALT                           \
+     KC_MUTE, KC_ESC, KC_TAB,   KC_LGUI,    KC_RALT,     LOWER,          KC_SPC, KC_SPC,  RAISE,   KC_LEFT,     KC_DOWN,     KC_UP,       KC_RIGHT,    KC_BRID, \
+                                            KC_DEL,      SYM_BKSP,       KC_SPC, KC_SPC,  SYM_ENT, KC_RALT                           \
   )
 #define LAYOUT_iris_base_wrapper(...)       LAYOUT_iris_base(__VA_ARGS__)
 
