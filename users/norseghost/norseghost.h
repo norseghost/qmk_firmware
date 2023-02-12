@@ -21,8 +21,10 @@
 
 #    define TAPPING_TERM 100
 #    define TAPPING_TERM_PER_KEY
-// #    define IGNORE_MOD_TAP_INTERRUPT
-// #    define TAPPING_FORCE_HOLD
+#    define IGNORE_MOD_TAP_INTERRUPT
+#    define TAPPING_FORCE_HOLD
+#    define PERMISSIVE_HOLD
+
 #    include QMK_KEYBOARD_H
 #    include "quantum.h"
 #    include "wrappers.h"

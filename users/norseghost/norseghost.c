@@ -30,6 +30,38 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_GAME] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
 };
 #endif
+#include "features/achordion.h"
+bool achordion_chord(uint16_t tap_hold_keycode, keyrecord_t *tap_hold_record, uint16_t other_keycode, keyrecord_t *other_record) {
+    // Exceptionally consider the following chords as holds, even though they
+    // are on the same hand in Dvorak.
+    switch (tap_hold_keycode) {
+        /* case TD(LOWER): */
+        /* case RAISE: */
+        /*     return true; */
+        /*     break; */
+        /**/
+        /* case HOME_S:  // S + H and S + G. */
+        /*   if (other_keycode == HOME_H || other_keycode == KC_G) { return true; } */
+        /*   break; */
+    }
+    // Also allow same-hand holds when the other key is in the rows below the
+    // alphas. I need the `% (MATRIX_ROWS / 2)` because my keyboard is split.
+    /* if (other_record->event.key.row == 3) { */
+    /*     return true; */
+    /* } */
+    switch (other_keycode) {
+        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+            other_keycode &= 0xff; // Get base keycode.
+    }
+    // Allow same-hand holds with non-alpha keys.
+    if (other_keycode > KC_Z) {
+        return true;
+    }
+
+    // Otherwise, follow the opposite hands rule.
+    return achordion_opposite_hands(tap_hold_record, other_record);
+}
 
 // clang-format on
 __attribute__((weak)) bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
@@ -37,6 +69,9 @@ __attribute__((weak)) bool process_record_secrets(uint16_t keycode, keyrecord_t 
 }
 
 __attribute__((weak)) bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!process_achordion(keycode, record)) {
+        return false;
+    }
     switch (keycode) {
         case QWERTY:
             if (record->event.pressed) {
@@ -83,7 +118,9 @@ __attribute__((weak)) bool process_record_user(uint16_t keycode, keyrecord_t *re
     }
     return process_record_secrets(keycode, record);
 }
-
+__attribute__((weak)) void matrix_scan_user(void) {
+    achordion_task();
+}
 #if defined(RGBLIGHT_ENABLE)
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
@@ -123,7 +160,7 @@ td_state_t cur_dance(qk_tap_dance_state_t *state) {
             return TD_SINGLE_HOLD;
     } else if (state->count == 2) {
         // TD_DOUBLE_SINGLE_TAP is to distinguish between typing "pepper", and actually wanting a double tap
-        // action when hitting 'pp'. Suggested use case for this return value is when you want to send two
+        // acti// A + U.on when hitting 'pp'. Suggested use case for this return value is when you want to send two
         // keystrokes of the key, and not the 'double tap' action/macro.
         if (state->interrupted)
             return TD_DOUBLE_SINGLE_TAP;
@@ -331,6 +368,9 @@ void wm_finished(qk_tap_dance_state_t *state, void *user_data) {
             break;
         case TD_DOUBLE_TAP:
             set_oneshot_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LSFT));
+            break;
+        case TD_TRIPLE_TAP:
+            caps_word_toggle();
             break;
         case TD_SINGLE_HOLD:
             register_code(KC_LGUI);
