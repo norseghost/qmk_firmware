@@ -61,3 +61,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___________________BLANK___________________, ___________________NAV_2___________________
   )
 };
+bool is_alpha_key(keypos_t key) {
+  return (key.row <= 2 && (key.col >= 0)) || ((key.row >= 4 && key.row < 9) && key.col >= 4);
+}

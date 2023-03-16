@@ -19,11 +19,12 @@
 
 #    define USERSPACE
 
-#    define TAPPING_TERM 100
+#    define TAPPING_TERM 150
 #    define TAPPING_TERM_PER_KEY
 #    define IGNORE_MOD_TAP_INTERRUPT
 #    define TAPPING_FORCE_HOLD
 #    define PERMISSIVE_HOLD
+#    define SPLIT_TRANSPORT_MIRROR
 
 #    include QMK_KEYBOARD_H
 #    include "quantum.h"
@@ -76,3 +77,8 @@ typedef enum {
     TD_TRIPLE_TAP,
     TD_TRIPLE_HOLD
 } td_state_t;
+
+typedef struct {
+    bool       is_press_action;
+    td_state_t state;
+} td_tap_t;
