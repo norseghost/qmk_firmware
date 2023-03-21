@@ -69,9 +69,9 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _________________LOWER_L2__________________        __________________FUNC_2___________________
 #define _________________LOWER_L3__________________        __________________FUNC_3___________________
 
-#define _________________LOWER_R1__________________        __________________NUMPAD_1_________________
-#define _________________LOWER_R2__________________        __________________NUMPAD_2_________________
-#define _________________LOWER_R3__________________        __________________NUMPAD_3_________________
+#define _________________LOWER_R1__________________        __________________NUMBERS_1________________
+#define _________________LOWER_R2__________________        __________________NUMBERS_2________________
+#define _________________LOWER_R3__________________        __________________NUMBERS_3________________
 
 
 #define _________________RAISE_L1__________________        RGB_TOG, RGB_VAI, RGB_HUI, KC_MUTE, KC_NUM
@@ -108,6 +108,11 @@ NOTE: These are all the same length.  If you do a search/replace
 #define __________________FUNC_1___________________       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
 #define __________________FUNC_2___________________       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
 #define __________________FUNC_3___________________       KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15
+
+// numpad without numpad digits
+#define __________________NUMBERS_1________________       KC_PAST, KC_7, KC_8, KC_9, KC_PMNS
+#define __________________NUMBERS_2________________       KC_PSLS, KC_4, KC_5, KC_6, KC_PPLS
+#define __________________NUMBERS_3________________       KC_0, KC_1, KC_2, KC_3, KC_PDOT
 
 // numpad half. lacking a numlock key - find that in the RAISE definition
 #define __________________NUMPAD_1_________________       KC_PAST, KC_KP_7, KC_KP_8, KC_KP_9, KC_PMNS

@@ -6,10 +6,10 @@
 #endif
 void keyboard_post_init_user(void) {
     // Customise these values to desired behaviour
-    // debug_enable = true;
-    // debug_matrix = true;
-    // debug_keyboard=true;
-    // debug_mouse=true;
+    debug_enable = true;
+    debug_matrix = true;
+    /* debug_keyboard = true; */
+    /* debug_mouse    = true; */
 }
 // __attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
 //   if(IS_LAYER_ON(_RAISE)) { // on Raise layer control volume
@@ -39,17 +39,16 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 #endif
 #include "features/achordion.h"
 
-/* __attribute__((weak)) bool is_alpha_key(keypos_t key) { */
-/*   return false; */
-/* } */
+
+
 bool achordion_chord(uint16_t tap_hold_keycode,
                      keyrecord_t* tap_hold_record,
                      uint16_t other_keycode,
                      keyrecord_t* other_record) {
   // Allow same-hand holds when the other key is a non-alpha key.
-  /* if (!is_alpha_key(other_record->event.key)) { */
-  /*   return true; */
-  /* } */
+  if (!is_alpha_key(other_record->event.key)) {
+    return true;
+  }
 
   // Otherwise, follow the opposite hands rule.
   return achordion_opposite_hands(tap_hold_record, other_record);
@@ -61,10 +60,6 @@ __attribute__((weak)) bool process_record_secrets(uint16_t keycode, keyrecord_t 
 }
 
 __attribute__((weak)) bool process_record_user(uint16_t keycode, keyrecord_t *record) { // If console is enabled, it will print the matrix position and status of each key pressed
-#ifdef CONSOLE_ENABLE
-    uprintf("KL: kc: 0x%04X, col: %u, row: %u, pressed: %b, time: %u, interrupt: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
-#endif
-    return true;
     if (!process_achordion(keycode, record)) {
         return false;
     }
