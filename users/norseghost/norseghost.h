@@ -7,11 +7,25 @@
 #define LWR_SPC LT(_LOWER, KC_SPACE)
 #define RSE_SPC LT(_RAISE, KC_SPACE)
 #define SYM_SPC LT(_SYMBOLS, KC_SPACE)
+#define SYM_A LT(_SYMBOLS, KC_A)
 // requires OS input language set to US international
 #define KC_ARING RALT(KC_W)
 #define KC_OSLASH RALT(KC_L)
 #define KC_AE RALT(KC_Z)
+// home row mods
+#define HOME_Z LGUI_T(KC_Z)
+#define HOME_A LT(_SYMBOLS, KC_A)
+#define HOME_S LALT_T(KC_S)
+#define HOME_D LCTL_T(KC_D)
+#define HOME_F LSFT_T(KC_F)
+#define HOME_G LT(_NAV, KC_G)
 
+#define HOME_H KC_H
+#define HOME_J RSFT_T(KC_J)
+#define HOME_K RCTL_T(KC_K)
+#define HOME_L RALT_T(KC_L)
+#define HOME_AO TD(ARING)
+#define HOME_OE TD(OSLASH)
 #ifndef MACRO_TIMER
 #    define MACRO_TIMER 5
 #endif
@@ -57,9 +71,10 @@ enum custom_keycodes {
 #endif
 // Tap Dance keycodes
 enum td_keycodes {
-    GUI_ARING, // right gui when held, "å" when tapped
-    LCTL_D,    // left control when held, "d" when tapped
-    LSFT_F,    // left shift when held, "f" when tapped
+    ARING,  // right gui when held, "å" when tapped
+    OSLASH, // right gui when held, "ø" when tapped
+    LCTL_D, // left control when held, "d" when tapped
+    LSFT_F, // left shift when held, "f" when tapped
     LOWER,
     RAISE,
     WM,

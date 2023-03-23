@@ -6,8 +6,8 @@
 #endif
 void keyboard_post_init_user(void) {
     // Customise these values to desired behaviour
-    debug_enable = true;
-    debug_matrix = true;
+    /* debug_enable = true; */
+    /* debug_matrix   = true; */
     /* debug_keyboard = true; */
     /* debug_mouse    = true; */
 }
@@ -38,13 +38,15 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 };
 #endif
 #include "features/achordion.h"
-
-
-
+/**/
+/* __attribute__((weak)) bool is_alpha_key(keypos_t key) { */
+/*   return false; */
+/* } */
 bool achordion_chord(uint16_t tap_hold_keycode,
                      keyrecord_t* tap_hold_record,
                      uint16_t other_keycode,
                      keyrecord_t* other_record) {
+
   // Allow same-hand holds when the other key is a non-alpha key.
   if (!is_alpha_key(other_record->event.key)) {
     return true;
@@ -54,12 +56,27 @@ bool achordion_chord(uint16_t tap_hold_keycode,
   return achordion_opposite_hands(tap_hold_record, other_record);
 }
 
-// clang-format on
+uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
+    switch (tap_hold_keycode) {
+        case HOME_A:
+        case HOME_Z:
+        case HOME_AO:
+        case HOME_OE:
+        case SYM_ENT:
+        case SYM_BKSP:
+            return 0; // Bypass Achordion for these keys.
+    }
+
+    return 400; // Otherwise use a timeout of 800 ms.
+}
 __attribute__((weak)) bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
-
 __attribute__((weak)) bool process_record_user(uint16_t keycode, keyrecord_t *record) { // If console is enabled, it will print the matrix position and status of each key pressed
+#ifdef CONSOLE_ENABLE
+    uprintf("KL: kc: 0x%04X, col: %u, row: %u, pressed: %b, time: %u, interrupt: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
+#endif
+    return true;
     if (!process_achordion(keycode, record)) {
         return false;
     }
@@ -140,10 +157,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 // Declare your tapdance functions:
 
 // Function to determine the current tapdance state
-td_state_t cur_dance(qk_tap_dance_state_t *state);
+td_state_t cur_dance(tap_dance_state_t *state);
 
 // Determine the tapdance state to return
-td_state_t cur_dance(qk_tap_dance_state_t *state) {
+td_state_t cur_dance(tap_dance_state_t *state) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return TD_SINGLE_TAP;
         // Key has not been interrupted, but the key is still held. Means you want to send a 'HOLD'.
@@ -175,16 +192,57 @@ td_state_t cur_dance(qk_tap_dance_state_t *state) {
 // Handle the possible states for each tapdance keycode you define:
 
 // Create an instance of 'td_tap_t' for the 'x' tap dance.
-static td_tap_t rguiaring_state = {.is_press_action = true, .state = TD_NONE};
+static td_tap_t oslash_state = {.is_press_action = true, .state = TD_NONE};
 
-void rguiaring_finished(qk_tap_dance_state_t *state, void *user_data) {
-    rguiaring_state.state = cur_dance(state);
-    switch (rguiaring_state.state) {
+void oslash_finished(tap_dance_state_t *state, void *user_data) {
+    oslash_state.state = cur_dance(state);
+    switch (oslash_state.state) {
+        case TD_SINGLE_TAP:
+            register_code16(KC_OSLASH);
+            break;
+        case TD_SINGLE_HOLD:
+            register_mods(MOD_BIT(KC_RGUI)); // For a layer-tap key, use `layer_on(_MY_LAYER)` here
+            break;
+        case TD_DOUBLE_TAP: // Allow nesting of 2 parens `((` within tapping term
+            tap_code16(KC_OSLASH);
+            register_code16(KC_OSLASH);
+            break;
+        case TD_TRIPLE_TAP:
+            // calling into the secrets directly since I can't get
+            // the keycodes working
+            send_string_with_delay(secrets[2], MACRO_TIMER);
+            break;
+        default:
+            break;
+    }
+}
+
+void oslash_reset(tap_dance_state_t *state, void *user_data) {
+    switch (oslash_state.state) {
+        case TD_SINGLE_TAP:
+            unregister_code16(KC_OSLASH);
+            break;
+        case TD_SINGLE_HOLD:
+            unregister_mods(MOD_BIT(KC_RGUI)); // For a layer-tap key, use `layer_off(_MY_LAYER)` here
+            break;
+        case TD_DOUBLE_TAP:
+            unregister_code16(KC_OSLASH);
+            break;
+        default:
+            break;
+    }
+    oslash_state.state = TD_NONE;
+}
+static td_tap_t aring_state = {.is_press_action = true, .state = TD_NONE};
+
+void aring_finished(tap_dance_state_t *state, void *user_data) {
+    aring_state.state = cur_dance(state);
+    switch (aring_state.state) {
         case TD_SINGLE_TAP:
             register_code16(KC_ARING);
             break;
         case TD_SINGLE_HOLD:
-            register_mods(MOD_BIT(KC_RGUI)); // For a layer-tap key, use `layer_on(_MY_LAYER)` here
+            layer_on(_SYMBOLS); // For a layer-tap key, use `layer_on(_MY_LAYER)` here
             break;
         case TD_DOUBLE_TAP: // Allow nesting of 2 parens `((` within tapping term
             tap_code16(KC_ARING);
@@ -200,13 +258,13 @@ void rguiaring_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void rguiaring_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch (rguiaring_state.state) {
+void aring_reset(tap_dance_state_t *state, void *user_data) {
+    switch (aring_state.state) {
         case TD_SINGLE_TAP:
             unregister_code16(KC_ARING);
             break;
         case TD_SINGLE_HOLD:
-            unregister_mods(MOD_BIT(KC_RGUI)); // For a layer-tap key, use `layer_off(_MY_LAYER)` here
+            layer_off(_SYMBOLS); // For a layer-tap key, use `layer_off(_MY_LAYER)` here
             break;
         case TD_DOUBLE_TAP:
             unregister_code16(KC_ARING);
@@ -214,12 +272,12 @@ void rguiaring_reset(qk_tap_dance_state_t *state, void *user_data) {
         default:
             break;
     }
-    rguiaring_state.state = TD_NONE;
+    aring_state.state = TD_NONE;
 }
 
 static td_tap_t lctld_state = {.is_press_action = true, .state = TD_NONE};
 
-void lctld_finished(qk_tap_dance_state_t *state, void *user_data) {
+void lctld_finished(tap_dance_state_t *state, void *user_data) {
     lctld_state.state = cur_dance(state);
     switch (lctld_state.state) {
         case TD_SINGLE_TAP:
@@ -237,7 +295,7 @@ void lctld_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void lctld_reset(qk_tap_dance_state_t *state, void *user_data) {
+void lctld_reset(tap_dance_state_t *state, void *user_data) {
     switch (lctld_state.state) {
         case TD_SINGLE_TAP:
             unregister_code16(KC_D);
@@ -256,7 +314,7 @@ void lctld_reset(qk_tap_dance_state_t *state, void *user_data) {
 
 static td_tap_t lsftf_state = {.is_press_action = true, .state = TD_NONE};
 
-void lsftf_finished(qk_tap_dance_state_t *state, void *user_data) {
+void lsftf_finished(tap_dance_state_t *state, void *user_data) {
     lsftf_state.state = cur_dance(state);
     switch (lsftf_state.state) {
         case TD_SINGLE_TAP:
@@ -277,7 +335,7 @@ void lsftf_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void lsftf_reset(qk_tap_dance_state_t *state, void *user_data) {
+void lsftf_reset(tap_dance_state_t *state, void *user_data) {
     switch (lsftf_state.state) {
         case TD_SINGLE_TAP:
             unregister_code16(KC_F);
@@ -298,7 +356,7 @@ void lsftf_reset(qk_tap_dance_state_t *state, void *user_data) {
 
 static td_tap_t raise_state = {.is_press_action = true, .state = TD_NONE};
 
-void raise_finished(qk_tap_dance_state_t *state, void *user_data) {
+void raise_finished(tap_dance_state_t *state, void *user_data) {
     raise_state.state = cur_dance(state);
     switch (raise_state.state) {
         case TD_SINGLE_HOLD:
@@ -321,7 +379,7 @@ void raise_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void raise_reset(qk_tap_dance_state_t *state, void *user_data) {
+void raise_reset(tap_dance_state_t *state, void *user_data) {
     // If the key was held down and now is released then switch off the layer
     switch (raise_state.state) {
         case TD_SINGLE_HOLD:
@@ -335,7 +393,7 @@ void raise_reset(qk_tap_dance_state_t *state, void *user_data) {
 
 static td_tap_t lower_state = {.is_press_action = true, .state = TD_NONE};
 
-void lower_finished(qk_tap_dance_state_t *state, void *user_data) {
+void lower_finished(tap_dance_state_t *state, void *user_data) {
     lower_state.state = cur_dance(state);
     switch (lower_state.state) {
         case TD_SINGLE_HOLD:
@@ -359,7 +417,7 @@ void lower_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void lower_reset(qk_tap_dance_state_t *state, void *user_data) {
+void lower_reset(tap_dance_state_t *state, void *user_data) {
     // If the key was held down and now is released then switch off the layer
     switch (lower_state.state) {
         case TD_SINGLE_HOLD:
@@ -373,8 +431,7 @@ void lower_reset(qk_tap_dance_state_t *state, void *user_data) {
 
 static td_tap_t wm_state = {.is_press_action = true, .state = TD_NONE};
 
-// TODO: tap dance window manager move between workspaces
-void wm_finished(qk_tap_dance_state_t *state, void *user_data) {
+void wm_finished(tap_dance_state_t *state, void *user_data) {
     wm_state.state = cur_dance(state);
     switch (wm_state.state) {
         case TD_SINGLE_TAP:
@@ -400,7 +457,7 @@ void wm_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void wm_reset(qk_tap_dance_state_t *state, void *user_data) {
+void wm_reset(tap_dance_state_t *state, void *user_data) {
     // If the key was held down and now is released then switch off the layer
     switch (wm_state.state) {
         case TD_SINGLE_HOLD:
@@ -421,8 +478,9 @@ void wm_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 // clang-format off
 // Define `ACTION_TAP_DANCE_FN_ADVANCED()` for each tapdance keycode, passing in `finished` and `reset` functions
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [GUI_ARING] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, rguiaring_finished, rguiaring_reset),
+tap_dance_action_t tap_dance_actions[] = {
+    [ARING] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, aring_finished, aring_reset),
+    [OSLASH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, oslash_finished, oslash_reset),
     [LCTL_D] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lctld_finished, lctld_reset),
     [LSFT_F] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lsftf_finished, lsftf_reset),
     [LOWER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lower_finished, lower_reset),
@@ -440,7 +498,8 @@ bool caps_word_press_user(uint16_t keycode) {
         case KC_AE:
         case TD(LCTL_D):
         case TD(LSFT_F):
-        case TD(GUI_ARING):
+        case TD(ARING):
+        case TD(OSLASH):
             add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift to next key.
             return true;
 

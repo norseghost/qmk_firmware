@@ -47,22 +47,21 @@ NOTE: These are all the same length.  If you do a search/replace
   f lengths consistent.
 */
 
-#define _________________QWERTY_L1_________________        KC_Q,         KC_W,         KC_E,       KC_R,       KC_T
-#define _________________QWERTY_L2_________________        LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F), LT(_NAV, KC_G)
-#define _________________QWERTY_L3_________________        KC_Z,         KC_X,         KC_C,       KC_V,       KC_B
+#define _________________QWERTY_L1_________________        KC_Q,    KC_W,     KC_E,    KC_R,    KC_T
+#define _________________QWERTY_L2_________________        LT(_SYMBOLS, KC_A),  HOME_S,   HOME_D,  HOME_F,  HOME_G
+#define _________________QWERTY_L3_________________        HOME_Z,  KC_X,     KC_C,    KC_V,    KC_B
 
-#define _________________QWERTY_R1_________________        KC_Y,    KC_U,         KC_I,         KC_O,         KC_P
-#define _________________QWERTY_R2_________________        KC_H,    RSFT_T(KC_J), RCTL_T(KC_K), RALT_T(KC_L), TD(GUI_ARING)
-#define _________________QWERTY_R3_________________        KC_N,    KC_M,         KC_COMM,      KC_DOT,       KC_OSLASH
+#define _________________QWERTY_R1_________________        KC_Y,    KC_U,     KC_I,    KC_O,    KC_P
+#define _________________QWERTY_R2_________________        HOME_H,  HOME_J,   HOME_K,  HOME_L,  HOME_AO
+#define _________________QWERTY_R3_________________        KC_N,    KC_M,     KC_COMM, KC_DOT,  HOME_OE
 
+#define _________________SYMBOLS_L1________________        KC_EXLM, KC_AT,    KC_LPRN, KC_RPRN, KC_DLR
+#define _________________SYMBOLS_L2________________        KC_GRV,  KC_SLSH,  KC_LBRC, KC_RBRC, KC_QUOT
+#define _________________SYMBOLS_L3________________        KC_HASH, KC_QUES,  KC_LCBR, KC_RCBR, KC_CIRC
 
-#define _________________SYMBOLS_L1________________        KC_EXLM, KC_AT,   KC_LPRN, KC_RPRN, KC_DLR
-#define _________________SYMBOLS_L2________________        KC_GRV,  KC_SLSH, KC_LBRC, KC_RBRC, KC_QUOT
-#define _________________SYMBOLS_L3________________        KC_HASH, KC_QUES, KC_LCBR, KC_RCBR, KC_CIRC
-
-#define _________________SYMBOLS_R1________________        KC_AMPR, KC_UNDS, KC_PLUS, KC_PIPE, KC_TILD
-#define _________________SYMBOLS_R2________________        KC_DQUO, KC_MINUS,KC_EQL,  KC_BSLS, KC_SCLN
-#define _________________SYMBOLS_R3________________        KC_ASTR, KC_LT,   KC_GT,   KC_PERC, KC_COLN
+#define _________________SYMBOLS_R1________________        KC_AMPR, KC_UNDS,  KC_PLUS, KC_PIPE, KC_TILD
+#define _________________SYMBOLS_R2________________        KC_DQUO, KC_MINUS, KC_EQL,  KC_BSLS, KC_SCLN
+#define _________________SYMBOLS_R3________________        KC_ASTR, KC_LT,    KC_GT,   KC_PERC, KC_COLN
 
 
 #define _________________LOWER_L1__________________        __________________FUNC_1___________________
