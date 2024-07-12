@@ -77,7 +77,7 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _________________RAISE_L2__________________        RGB_MOD, RGB_VAD, RGB_HUD, KC_VOLU, KC_BRIU
 #define _________________RAISE_L3__________________        QK_BOOT, RGB_SAI, RGB_SAD, KC_VOLD, KC_BRID
 
-#define _________________RAISE_R1__________________        _______, _______, _______, _______, _______
+#define _________________RAISE_R1__________________        QK_BOOT, _______, _______, _______, _______
 #define _________________RAISE_R2__________________        _______, _______, _______, _______, _______
 #define _________________RAISE_R3__________________        KC_MPLY, KC_MNXT, KC_MPRV, _______, TG(_GAME)
 

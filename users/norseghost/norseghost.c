@@ -29,7 +29,7 @@ void keyboard_post_init_user(void) {
 // clang-format off
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [_QWERTY] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [_QWERTY] = {ENCODER_CCW_CW(KC_VOLU, KC_VOLD)},
     [_NAV] = {ENCODER_CCW_CW(KC_PGDN, KC_PGUP)},
     [_SYMBOLS] = {ENCODER_CCW_CW(KC_NO, KC_NO)},
     [_LOWER] = {ENCODER_CCW_CW(KC_MS_WH_DOWN, KC_MS_WH_UP)},
@@ -42,15 +42,25 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 /* __attribute__((weak)) bool is_alpha_key(keypos_t key) { */
 /*   return false; */
 /* } */
+/* static bool is_alpha_key(keypos_t key) { */
+/*     return key.row <= 2 && (key.col <= 4 || key.col >= 7); */
+/* } */
 bool achordion_chord(uint16_t tap_hold_keycode,
                      keyrecord_t* tap_hold_record,
                      uint16_t other_keycode,
-                     keyrecord_t* other_record) {
+                     keyrecord_t* other_record)
+{switch (other_keycode) {
+  case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+  case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+    other_keycode &= 0xff;  // Get base keycode.
+}
+// Allow same-hand holds with non-alpha keys.
+if (other_keycode > KC_Z) { return true; }
 
   // Allow same-hand holds when the other key is a non-alpha key.
-  if (!is_alpha_key(other_record->event.key)) {
-    return true;
-  }
+  /* if (!is_alpha_key(other_record->event.key)) { */
+  /*   return true; */
+  /* } */
 
   // Otherwise, follow the opposite hands rule.
   return achordion_opposite_hands(tap_hold_record, other_record);
@@ -73,10 +83,9 @@ __attribute__((weak)) bool process_record_secrets(uint16_t keycode, keyrecord_t 
     return true;
 }
 __attribute__((weak)) bool process_record_user(uint16_t keycode, keyrecord_t *record) { // If console is enabled, it will print the matrix position and status of each key pressed
-#ifdef CONSOLE_ENABLE
-    uprintf("KL: kc: 0x%04X, col: %u, row: %u, pressed: %b, time: %u, interrupt: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
-#endif
-    return true;
+/* #ifdef CONSOLE_ENABLE */
+/*     uprintf("KL: kc: 0x%04X, col: %u, row: %u, pressed: %b, time: %u, interrupt: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count); */
+/* #endif */
     if (!process_achordion(keycode, record)) {
         return false;
     }
