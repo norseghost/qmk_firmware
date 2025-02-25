@@ -17,7 +17,7 @@
 #pragma once
 
 // DEPRECATED DEFINES - DO NOT USE
-#if defined(RGBLED_NUM)
+#if defined(RGBLED_NUM) && !defined(RGBLIGHT_LED_COUNT)
 #    define RGBLIGHT_LED_COUNT RGBLED_NUM
 #endif
 // ========

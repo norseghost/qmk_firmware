@@ -48,7 +48,7 @@ NOTE: These are all the same length.  If you do a search/replace
 */
 
 #define _________________QWERTY_L1_________________        KC_Q,    KC_W,     KC_E,    KC_R,    KC_T
-#define _________________QWERTY_L2_________________        LT(_SYMBOLS, KC_A),  HOME_S,   HOME_D,  HOME_F,  HOME_G
+#define _________________QWERTY_L2_________________        HOME_A,  HOME_S,   HOME_D,  HOME_F,  HOME_G
 #define _________________QWERTY_L3_________________        HOME_Z,  KC_X,     KC_C,    KC_V,    KC_B
 
 #define _________________QWERTY_R1_________________        KC_Y,    KC_U,     KC_I,    KC_O,    KC_P

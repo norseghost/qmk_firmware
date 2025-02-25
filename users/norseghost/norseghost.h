@@ -13,8 +13,8 @@
 #define KC_OSLASH RALT(KC_L)
 #define KC_AE RALT(KC_Z)
 // home row mods
-#define HOME_Z LGUI_T(KC_Z)
-#define HOME_A LT(_SYMBOLS, KC_A)
+#define HOME_Z LT(_NAV, KC_Z)
+#define HOME_A LGUI_T(KC_A)
 #define HOME_S LALT_T(KC_S)
 #define HOME_D LCTL_T(KC_D)
 #define HOME_F LSFT_T(KC_F)
