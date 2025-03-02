@@ -62,7 +62,7 @@ if (other_keycode > KC_Z) { return true; }
   /*   return true; */
   /* } */
 
-  // Otherwise, follow the opposite hands rule.
+  // Otherwise, follow the opposite hands rule.BKSP
   return achordion_opposite_hands(tap_hold_record, other_record);
 }
 
@@ -74,6 +74,7 @@ uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
         case HOME_OE:
         case SYM_ENT:
         case SYM_BKSP:
+        case SYM_SPC:
             return 0; // Bypass Achordion for these keys.
     }
 
@@ -230,6 +231,50 @@ td_state_t cur_dance(tap_dance_state_t *state) {
 // Handle the possible states for each tapdance keycode you define:
 
 // Create an instance of 'td_tap_t' for the 'x' tap dance.
+
+
+static td_tap_t ae_state = {.is_press_action = true, .state = TD_NONE};
+
+void ae_finished(tap_dance_state_t *state, void *user_data) {
+    ae_state.state = cur_dance(state);
+    switch (ae_state.state) {
+        case TD_SINGLE_TAP:
+            register_code16(KC_AE);
+            break;
+        case TD_SINGLE_HOLD:
+            register_mods(MOD_BIT(KC_RGUI)); // For a layer-tap key, use `layer_on(_MY_LAYER)` here
+            break;
+        case TD_DOUBLE_TAP: // Allow nesting of 2 parens `((` within tapping term
+            tap_code16(KC_AE);
+            register_code16(KC_AE);
+            break;
+        case TD_TRIPLE_TAP:
+            // calling into the secrets directly since I can't get
+            // the keycodes working
+            send_string_with_delay(secrets[2], MACRO_TIMER);
+            break;
+        default:
+            break;
+    }
+}
+
+void ae_reset(tap_dance_state_t *state, void *user_data) {
+    switch (ae_state.state) {
+        case TD_SINGLE_TAP:
+            unregister_code16(KC_AE);
+            break;
+        case TD_SINGLE_HOLD:
+            unregister_mods(MOD_BIT(KC_RGUI)); // For a layer-tap key, use `layer_off(_MY_LAYER)` here
+            break;
+        case TD_DOUBLE_TAP:
+            unregister_code16(KC_AE);
+            break;
+        default:
+            break;
+    }
+    ae_state.state = TD_NONE;
+}
+
 static td_tap_t oslash_state = {.is_press_action = true, .state = TD_NONE};
 
 void oslash_finished(tap_dance_state_t *state, void *user_data) {

@@ -52,8 +52,8 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _________________QWERTY_L3_________________        HOME_Z,  KC_X,     KC_C,    KC_V,    KC_B
 
 #define _________________QWERTY_R1_________________        KC_Y,    KC_U,     KC_I,    KC_O,    KC_P
-#define _________________QWERTY_R2_________________        HOME_H,  HOME_J,   HOME_K,  HOME_L,  HOME_AO
-#define _________________QWERTY_R3_________________        KC_N,    KC_M,     KC_COMM, KC_DOT,  HOME_OE
+#define _________________QWERTY_R2_________________        HOME_H,  HOME_J,   HOME_K,  HOME_L,  HOME_AE
+#define _________________QWERTY_R3_________________        KC_N,    KC_M,     KC_COMM, KC_DOT,  KC_SLASH
 
 #define _________________SYMBOLS_L1________________        KC_EXLM, KC_AT,    KC_LPRN, KC_RPRN, KC_DLR
 #define _________________SYMBOLS_L2________________        KC_GRV,  KC_SLSH,  KC_LBRC, KC_RBRC, KC_QUOT
@@ -68,9 +68,9 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _________________LOWER_L2__________________        __________________FUNC_2___________________
 #define _________________LOWER_L3__________________        __________________FUNC_3___________________
 
-#define _________________LOWER_R1__________________        __________________NUMBERS_1________________
-#define _________________LOWER_R2__________________        __________________NUMBERS_2________________
-#define _________________LOWER_R3__________________        __________________NUMBERS_3________________
+#define _________________LOWER_R1__________________        __________________NUMPAD_1_________________
+#define _________________LOWER_R2__________________        __________________NUMPAD_2_________________
+#define _________________LOWER_R3__________________        __________________NUMPAD_3_________________
 
 
 #define _________________RAISE_L1__________________        RGB_TOG, RGB_VAI, RGB_HUI, KC_MUTE, KC_NUM

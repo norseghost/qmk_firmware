@@ -26,6 +26,7 @@
 #define HOME_L RALT_T(KC_L)
 #define HOME_AO TD(ARING)
 #define HOME_OE TD(OSLASH)
+#define HOME_AE TD(AE)
 #ifndef MACRO_TIMER
 #    define MACRO_TIMER 5
 #endif
@@ -73,7 +74,8 @@ enum custom_keycodes {
 enum td_keycodes {
     ARING,  // right gui when held, "å" when tapped
     OSLASH, // right gui when held, "ø" when tapped
-    LCTL_D, // left control when held, "d" when tapped
+    AE,     // right gui when held, "æ" when tapped
+    LCTL_D, // left control when held, "d"OSLASH when tapped
     LSFT_F, // left shift when held, "f" when tapped
     LOWER,
     RAISE,
