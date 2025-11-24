@@ -563,6 +563,7 @@ void wm_reset(tap_dance_state_t *state, void *user_data) {
 // Define `ACTION_TAP_DANCE_FN_ADVANCED()` for each tapdance keycode, passing in `finished` and `reset` functions
 tap_dance_action_t tap_dance_actions[] = {
     [ARING] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, aring_finished, aring_reset),
+    [AE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ae_finished, ae_reset),
     [OSLASH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, oslash_finished, oslash_reset),
     [LCTL_D] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lctld_finished, lctld_reset),
     [LSFT_F] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lsftf_finished, lsftf_reset),
